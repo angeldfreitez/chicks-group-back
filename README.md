@@ -1,130 +1,130 @@
 # Water Jug Challenge API
 
-## Descripción
+## Description
 
-Este proyecto es una API RESTful desarrollada en Express y TypeScript para resolver el **Water Jug Riddle** (el desafío de las jarras de agua). La API permite calcular los pasos necesarios para medir exactamente `amount_wanted` galones usando dos jarras de capacidades `bucket_x` y `bucket_y`.
+This project is a RESTful API developed in Express and TypeScript to solve the **Water Jug Riddle**. The API allows to calculate the steps required to measure exactly `amount_wanted` gallons using two jugs of capacities `bucket_x` and `bucket_y`.
 
-El algoritmo implementado devuelve la solución más eficiente (menos pasos) comparando dos estrategias: comenzar llenando primero el cubo X o el cubo Y.
+The implemented algorithm returns the most efficient solution (fewest steps) by comparing two strategies: start by filling bucket X or bucket Y first.
 
-## Algoritmo
+## Algorithm
 
-### Descripción del Algoritmo
+### Algorithm Description
 
-El algoritmo es una implementación basada en el uso de las operaciones básicas que se pueden realizar en dos cubos:
-- **Llenar** un cubo.
-- **Vaciar** un cubo.
-- **Transferir** agua de un cubo a otro.
+The algorithm is an implementation based on the use of the basic operations that can be performed on two buckets:
+- **Fill** a bucket.
+- **Empty** a bucket.
+- **Transfer** water from one bucket to another.
 
-Se comparan las dos soluciones obtenidas y se selecciona la que tenga menos pasos.
+The two solutions obtained are compared and the one with the least steps is selected.
 
-### Pasos posibles:
-1. Llenar un cubo (X o Y).
-2. Vaciar un cubo (X o Y).
-3. Transferir el contenido de un cubo al otro.
+### Possible steps:
+1. Fill a bucket (X or Y).
+2. Empty a bucket (X or Y).
+3. Transfer the contents of one bucket to the other.
 
-### Complejidad del Algoritmo
+### Algorithm Complexity
 
-El algoritmo tiene una **complejidad de tiempo** que es aproximadamente **O(n)**, donde `n` es el número de operaciones necesarias para llegar a la solución (dependiendo de los tamaños de los cubos y del valor de `amount_wanted`). Aunque no es una búsqueda exhaustiva completa, se realiza una exploración secuencial de los pasos posibles para lograr el objetivo.
+The algorithm has a **time complexity** that is approximately **O(n)**, where `n` is the number of operations needed to reach the solution (depending on the bucket sizes and the value of `amount_wanted`). Although it is not a complete exhaustive search, a sequential exploration of the possible steps to achieve the goal is performed.
 
-La **complejidad espacial** es también **O(n)**, ya que se almacenan los pasos realizados hasta encontrar la solución.
+The **space complexity** is also **O(n)**, since the steps performed until the solution is found are stored.
 
-## Instalación
+## Installation
 
-### Prerrequisitos
+### Prerequisites
 
-- Node.js (versión >= 20)
-- npm (versión >= 6)
+- Node.js (version >= 20)
+- npm (version >= 6)
 
-### Pasos para instalar y ejecutar el proyecto
+### Steps to install and run the project
 
-1. Clonar el repositorio:
+1. Clone the repository:
 
 ```bash
 git clone https://github.com/angeldfreitez/chicks-group-back.git
 ```
 
-2. Instalar las dependencias
+2. Install the dependencies
 
 ```bash
-nvm use   
+nvm use
 npm install
 ```
-3. Ejecutar el proyecto
+3. Run the project
 
 ```bash
 npm start
 ```
 
-Esto levantará el servidor en http://localhost:3000.
+This will start the server at http://localhost:3000.
 
-### Rutas
+### Routes
 ```bash
 localhost:3000/api/water-jug/solve
 ```
 #### Payload
 ```json
 {
-  "x_capacity": 3,
-  "y_capacity": 4,
-  "z_amount_wanted": 4
+"x_capacity": 3,
+"y_capacity": 4,
+"z_amount_wanted": 4
 }
 ```
-#### Respuesta
+#### Response
 ```json
 {
-  "steps": [
-    {
-      "step": 1,
-      "bucketX": 0,
-      "bucketY": 4,
-      "action": "Fill bucket Y || SOLVED"
-    }
-  ],
-  "resume": "Solution found by prioritizing bucketY, in 1 steps. Final state: bucketX=0, bucketY=4"
+"steps": [
+{
+"step": 1,
+"bucketX": 0,
+"bucketY": 4,
+"action": "Fill bucket Y || SOLVED"
+}
+],
+"resume": "Solution found by prioritizing bucketY, in 1 steps. Final state: bucketX=0, bucketY=4"
 }
 ```
-## Estructura del Proyecto
-El proyecto sigue una estructura modular para facilitar el mantenimiento y la escalabilidad. Aquí se explica brevemente cómo está organizado:
+## Project Structure
+The project follows a modular structure for easy maintenance and scalability. Here is a brief explanation of how it is organized:
 
 ```
 water-jug-challenge/
 │
-├── src/                      
-│   ├── controllers/          
-│   │   └── water-jug.controller.ts
-│   ├── entities/             
-│   │   └── index.ts
-│   ├── services/             
-│   │   └── water-jug-solver.service.ts
-│   ├── routes/               
-│   │   └── water-jug.route.ts
-│   └── app.ts                
+├── src/
+│ ├── controllers/
+│ │ └── water-jug.controller.ts
+│ ├── entities/
+│ │ └── index.ts
+│ ├── services/
+│ │ └── water-jug-solver.service.ts
+│ ├── routes/
+│ │ └── water-jug.route.ts
+│ └── app.ts
 │
-├── tests/                    
-│   ├── water-jug.controller.spec.ts
-│   └── water-jug.service.spec.ts
+├── tests/
+│ ├── water-jug.controller.spec.ts
+│ └── water-jug.service.spec.ts
 │
-├── node_modules/             
-├── .gitignore                
-├── .nvmrc                
-├── package.json              
-├── tsconfig.json             
-└── README.md                 
+├── node_modules/
+├── .gitignore
+├── .nvmrc
+├── package.json
+├── tsconfig.json
+└── README.md
 
 ```
 
-## Tecnologías Utilizadas
+## Technologies Used
 
-- **Node.js**: Un entorno de ejecución para JavaScript que permite construir aplicaciones del lado del servidor. Utilizado para ejecutar la lógica de backend y manejar las solicitudes HTTP.
+- **Node.js**: A runtime environment for JavaScript that allows building server-side applications. Used to execute backend logic and handle HTTP requests.
 
-- **Express.js**: Un framework minimalista para Node.js que simplifica la creación de APIs RESTful. Se utiliza para definir las rutas de la API y gestionar las solicitudes y respuestas HTTP de manera eficiente.
+- **Express.js**: A minimalist framework for Node.js that simplifies the creation of RESTful APIs. It is used to define API routes and handle HTTP requests and responses efficiently.
 
-- **TypeScript**: Un superconjunto tipado de JavaScript que añade tipos estáticos, lo cual facilita el desarrollo de aplicaciones escalables y más seguras, ayudando a prevenir errores de tipo durante el desarrollo.
+- **TypeScript**: A typed superset of JavaScript that adds static typing, which makes it easier to develop scalable and more secure applications, helping to prevent type errors during development.
 
-- **Jest**: Un framework de pruebas para JavaScript y TypeScript que se utiliza para realizar pruebas unitarias en el proyecto. Jest permite escribir pruebas automatizadas que garantizan que el código funcione según lo esperado.
+- **Jest**: A testing framework for JavaScript and TypeScript that is used to perform unit testing on the project. Jest allows you to write automated tests that ensure that your code works as expected.
 
-- **Supertest**: Un módulo para pruebas HTTP en Node.js. Se utiliza junto con Jest para realizar pruebas de integración de las rutas y endpoints del servidor Express, permitiendo simular solicitudes HTTP y verificar las respuestas sin necesidad de levantar el servidor.
+- **Supertest**: A module for HTTP testing in Node.js. It is used in conjunction with Jest to perform integration testing of Express server routes and endpoints, allowing you to simulate HTTP requests and verify responses without having to start the server.
 
-- **ts-node**: Un ejecutor de TypeScript que permite ejecutar archivos `.ts` directamente sin necesidad de compilar a JavaScript. Utilizado durante el desarrollo para ejecutar el servidor sin necesidad de generar el código JavaScript manualmente.
+- **ts-node**: A TypeScript runner that allows you to run `.ts` files directly without having to compile to JavaScript. Used during development to run the server without the need to generate JavaScript code manually.
 
-- **nodemon**: Una herramienta que monitorea los cambios en los archivos del proyecto y reinicia automáticamente el servidor. Facilita el flujo de trabajo durante el desarrollo, ya que no es necesario reiniciar manualmente el servidor después de cada cambio.
+- **nodemon**: A tool that monitors changes to project files and automatically restarts the server. It makes the workflow easier during development as there is no need to manually restart the server after each change.
