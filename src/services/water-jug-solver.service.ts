@@ -5,22 +5,22 @@ function gcd(a: number, b: number): number {
   return gcd(b, a % b);
 }
 
-function solveJugProblem(X: number, Y: number, Z: number, prioritizeX: boolean): Step[] {
+function solveJugProblem(bucketCapacityX: number, bucketCapacityY: number, target: number, prioritizeX: boolean): Step[] {
   const steps:Step[] = [];
   let x:number = 0, y:number = 0, step:number = 0;
 
-  while (x !== Z && y !== Z) {
+  while (x !== target && y !== target) {
     step++;
 
     if (prioritizeX) {
       if (x === 0) {
-        x = X;
+        x = bucketCapacityX;
         steps.push({ step, bucketX: x, bucketY: y, action: 'Fill bucket X' });
-      } else if (y === Y) {
+      } else if (y === bucketCapacityY) {
         y = 0;
         steps.push({ step, bucketX: x, bucketY: y, action: 'Empty bucket Y' });
       } else {
-        const transfer = Math.min(x, Y - y);
+        const transfer = Math.min(x, bucketCapacityY - y);
         x -= transfer;
         y += transfer;
         steps.push({ step, bucketX: x, bucketY: y, action: 'Transfer from bucket X to Y' });
@@ -28,20 +28,20 @@ function solveJugProblem(X: number, Y: number, Z: number, prioritizeX: boolean):
     }
     else {
       if (y === 0) {
-        y = Y;
+        y = bucketCapacityY;
         steps.push({ step, bucketX: x, bucketY: y, action: 'Fill bucket Y' });
-      } else if (x === X) {
+      } else if (x === bucketCapacityX) {
         x = 0;
         steps.push({ step, bucketX: x, bucketY: y, action: 'Empty bucket X' });
       } else {
-        const transfer = Math.min(y, X - x);
+        const transfer = Math.min(y, bucketCapacityX - x);
         y -= transfer;
         x += transfer;
         steps.push({ step, bucketX: x, bucketY: y, action: 'Transfer from bucket Y to X' });
       }
     }
 
-    if (x === Z || y === Z) {
+    if (x === target || y === target) {
       const lastStep = steps[steps.length - 1];
       lastStep.action += ' || SOLVED';
       break;
